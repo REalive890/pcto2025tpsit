@@ -1,23 +1,20 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;dbname=pcto_videogiochi;charset=utf8', 'root', '', [
-  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
 
+require_once 'config/db.php'; // Assuming you have a database connection file
+require_once 'controller/gameController.php'; // Assuming you have a GameController
+require_once 'controller/ReviewController.php'; // Assuming you have a GameController
 
 header('Content-Type: application/json');
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
-    case 'showImmages':
-        $stmt = $pdo->prepare('SELECT immagine FROM giochi');
-        $stmt->execute();
-        $images= $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        echo json_encode($images);
+    case 'getGames':
+        $controller = new GameController($pdo); // Assuming you have a GameController
+        echo json_encode($controller->getAllGames());
         break;
-
-    default:
-        echo json_encode(['error' => 'Invalid action']);
+    case 'getReviews':
+        $controller = new ReviewController($pdo); // Assuming you have a GameController
+        echo json_encode($controller->getReviewsById($_GET['id_game']));
         break;
-} ?>
+}
+?>

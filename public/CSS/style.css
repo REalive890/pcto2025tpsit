@@ -1,0 +1,177 @@
+:root {
+    --neon-green-main: #39ff14;
+    --neon-green-dark: #009900;
+    --neon-green-light: #66ff66;
+    --neon-green-accent: #00ff99;
+    --white: #fff;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #101113;
+    color: var(--white);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background: #101113 !important;
+    border-bottom: 2px solid var(--neon-green-accent);
+    box-shadow: 0 2px 16px rgba(57, 255, 20, 0.08);
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0;
+}
+
+.navbar .navbar-brand {
+    color: var(--white) !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    text-shadow: 0 0 8px var(--neon-green-accent);
+}
+
+.navbar-nav .nav-link {
+    color: var(--white) !important;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--neon-green-accent);
+    background: transparent !important;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    text-shadow: 0 0 4px var(--neon-green-accent);
+    font-weight: 500;
+}
+
+/* Remove Bootstrap's .active background for nav-link */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:hover {
+    background: var(--neon-green-accent) !important;
+    color: var(--white) !important;
+    box-shadow: 0 0 8px var(--neon-green-main);
+    border-color: var(--neon-green-main);
+}
+
+/* Remove Bootstrap's .active background for nav-item */
+.navbar-nav .nav-item .nav-link.active {
+    background-color: transparent !important;
+}
+
+.navbar-text {
+    font-size: 1rem;
+    margin-left: auto;
+    color: var(--white) !important;
+    text-shadow: 0 0 4px var(--neon-green-accent);
+}
+
+#content-wrap {
+    padding: 2.5rem 0;
+}
+
+#app {
+    min-height: 60vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer,
+footer {
+    background: #101113;
+    color: var(--white);
+    border-top: 2px solid var(--neon-green-accent);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    padding: 1.2rem 0;
+    text-shadow: 0 0 4px var(--neon-green-accent);
+    margin-bottom: 0;
+    box-shadow: 0 -2px 16px rgba(57, 255, 20, 0.08);
+}
+
+.navbar .container,
+.footer .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Neon green buttons */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning {
+    background: transparent !important;
+    border: 2px solid var(--neon-green-accent) !important;
+    color: var(--white) !important;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: background 0.2s, border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 12px var(--neon-green-accent), 0 2px 8px rgba(57, 255, 20, 0.07);
+    text-shadow: 0 0 4px var(--neon-green-accent);
+}
+
+.btn:hover,
+.btn:focus {
+    background: var(--neon-green-accent) !important;
+    border-color: var(--neon-green-main) !important;
+    color: var(--white) !important;
+    box-shadow: 0 0 16px var(--neon-green-main);
+}
+
+/* Minimal card/modal styling */
+.card,
+.modal-content {
+    border-radius: 1rem;
+    border: 1.5px solid var(--neon-green-light);
+    background: #181a1b;
+    color: var(--white);
+    box-shadow: 0 0 16px var(--neon-green-accent), 0 2px 16px rgba(57, 255, 20, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.review-card {
+    border: 1.5px solid var(--neon-green-light);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    background: #181a1b;
+    color: var(--white);
+    box-shadow: 0 0 8px var(--neon-green-accent);
+}
+
+.review-container {
+    margin-top: 20px;
+}
+
+.review-form {
+    margin-bottom: 20px;
+}
+
+.rating-input {
+    width: 80px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    #content-wrap {
+        padding: 1rem 0;
+    }
+
+    #app {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 0.5rem;
+        padding: 0.5rem 0.7rem;
+    }
+}

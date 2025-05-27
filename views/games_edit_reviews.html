@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <h1 class="text-center">Welcome to Game Reviews</h1>
+
+    <!-- Carousel -->
+    <div id="gameCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+    <div class="carousel-inner" id="carouselInner">
+        <!-- Carousel items will be dynamically added here -->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#gameCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#gameCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+
+    <!-- Review Container -->
+    <div class="review-container mt-4">
+        <h2 class="text-center">Reviews</h2>
+        <div class="review-form">
+            <form id="reviewForm">
+                <div class="form-group">
+                    <textarea class="form-control" id="comment" rows="3"
+                        placeholder="Enter your comment here"></textarea>
+                </div>
+                <div class="form-row align-items-center justify-content-between">
+                    <div class="col-auto">
+                        <label for="rating">Rating
+                            (0-10):</label>
+                        <input type="number" class="form-control rating-input" id="rating" min="0" max="10" value="5">
+                    </div>
+                    <div class="col-auto d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">Submit
+                            Review</button>
+                    </div>
+                </div>
+            </form>
+            <!-- ...existing code... -->
+
+<div class="text-end mb-3">
+    <button class="btn btn-secondary" id="myReviewsBtn" data-bs-toggle="modal" data-bs-target="#myReviewsModal">
+        My Reviews
+    </button>
+</div>
+
+<!-- My Reviews Modal -->
+<div class="modal fade" id="myReviewsModal" tabindex="-1" aria-labelledby="myReviewsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myReviewsModalLabel">My Reviews</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="myReviewsList">
+          <!-- User's reviews will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ...existing code... -->
+        </div>
+        <div id="reviews">
+            <!-- Reviews will be dynamically added here -->
+        </div>
+    </div>
+</div>

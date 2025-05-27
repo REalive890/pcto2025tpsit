@@ -8,7 +8,7 @@ class GameController {
 
     public function getAllGames() {
         $stmt = $this->pdo->query('SELECT id, titolo, genere, immagine, piattaforma, data_inserimento FROM giochi');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
     }
 }
 ?>

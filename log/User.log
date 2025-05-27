@@ -30,3 +30,6 @@
 [2025-05-27 23:54:08] INFO: Tentativo di login fallito (email non esistente): gionai@gmail.com
 [2025-05-27 23:54:09] INFO: Tentativo di login fallito (email non esistente): gionai@gmail.com
 [2025-05-27 23:54:33] INFO: Login effettuato con successo: giona@gmail.come
+[2025-05-28 00:37:07] INFO: Tentativo di login fallito (password errata): acharig47@gmail.com
+[2025-05-28 00:37:12] INFO: Tentativo di login fallito (password errata): acharig47@gmail.com
+[2025-05-28 00:37:22] INFO: Login effettuato con successo: acharig47@gmail.com

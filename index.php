@@ -48,6 +48,7 @@
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/JS/utilities.js?v=1.0"></script>
     <script src="public/JS/user.js?v=1.0"></script>
     <script src="public/JS/games.js?v=1.0"></script>
     <script src="public/JS/reviews.js?v=1.0"></script>

@@ -287,3 +287,11 @@ $(document).on('click', '.delete-review-btn', async function() {
         alert('Error deleting review: ' + data.message);
     }
 });
+
+// Prevent carousel from sliding when modal is open
+$(document).on('show.bs.modal', function () {
+    $('#gameCarousel').carousel('pause');
+});
+$(document).on('hidden.bs.modal', function () {
+    $('#gameCarousel').carousel('cycle');
+});

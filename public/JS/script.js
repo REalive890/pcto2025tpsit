@@ -49,7 +49,7 @@ $(document).ready(function() {
   if (view === "register") bindRegister();
   if (view === "games_reviews" || view === "games_edit_reviews") {
     await loadGames();
-    updateReviews();
+    updateReviews(true);
   }
 }
 async function fetchReviewsFromServer(gameId) {
@@ -168,9 +168,16 @@ function bindCarousel() {
 
 function updateLoginStatus() {
     const isLoggedIn = localStorage.getItem("loggedIn");
+    const username = localStorage.getItem("username");
     const statusSpan = document.getElementById('loginStatus');
     if (!statusSpan) return;
-    statusSpan.textContent = isLoggedIn === "true" ? "Logged in" : "Not logged in";
+    if (isLoggedIn === "true" && username) {
+        statusSpan.textContent = `Logged in as ${username}`;
+    } else if (isLoggedIn === "true") {
+        statusSpan.textContent = "Logged in";
+    } else {
+        statusSpan.textContent = "Not logged in";
+    }
 }
 
 // Call updateLoginStatus() after login/logout/register actions as well

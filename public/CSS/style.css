@@ -19,15 +19,21 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+}
+
+.container,
+#content-wrap,
+#app {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
 }
 
 .navbar {
     background: #101113 !important;
     border-bottom: 2px solid var(--neon-green-accent);
     box-shadow: 0 2px 16px rgba(57, 255, 20, 0.08);
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-    margin-bottom: 0;
+    margin-bottom: 2rem;
 }
 
 .navbar .navbar-brand {
@@ -42,27 +48,22 @@ body {
     color: var(--white) !important;
     margin-right: 1rem;
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--neon-green-accent);
+    padding: 0.5rem 1.2rem;
+    border: 2px solid var(--neon-green-accent) !important;
     background: transparent !important;
     transition: background 0.2s, color 0.2s, border 0.2s;
     text-shadow: 0 0 4px var(--neon-green-accent);
     font-weight: 500;
+    box-shadow: none !important;
 }
 
-/* Remove Bootstrap's .active background for nav-link */
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:focus,
 .navbar-nav .nav-link:hover {
     background: var(--neon-green-accent) !important;
     color: var(--white) !important;
+    border-color: var(--neon-green-accent) !important;
     box-shadow: 0 0 8px var(--neon-green-main);
-    border-color: var(--neon-green-main);
-}
-
-/* Remove Bootstrap's .active background for nav-item */
-.navbar-nav .nav-item .nav-link.active {
-    background-color: transparent !important;
 }
 
 .navbar-text {
@@ -70,16 +71,6 @@ body {
     margin-left: auto;
     color: var(--white) !important;
     text-shadow: 0 0 4px var(--neon-green-accent);
-}
-
-#content-wrap {
-    padding: 2.5rem 0;
-}
-
-#app {
-    min-height: 60vh;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
 }
 
 .footer,
@@ -91,17 +82,10 @@ footer {
     letter-spacing: 0.5px;
     padding: 1.2rem 0;
     text-shadow: 0 0 4px var(--neon-green-accent);
-    margin-bottom: 0;
+    margin-top: 2rem;
     box-shadow: 0 -2px 16px rgba(57, 255, 20, 0.08);
 }
 
-.navbar .container,
-.footer .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
-
-/* Neon green buttons */
 .btn,
 .btn-primary,
 .btn-secondary,
@@ -116,6 +100,7 @@ footer {
     transition: background 0.2s, border 0.2s, box-shadow 0.2s;
     box-shadow: 0 0 12px var(--neon-green-accent), 0 2px 8px rgba(57, 255, 20, 0.07);
     text-shadow: 0 0 4px var(--neon-green-accent);
+    margin-top: 10px;
 }
 
 .btn:hover,
@@ -126,7 +111,38 @@ footer {
     box-shadow: 0 0 16px var(--neon-green-main);
 }
 
-/* Minimal card/modal styling */
+/* Carousel neon border and spacing */
+#gameCarousel {
+    border: 3px solid var(--neon-green-accent);
+    border-radius: 1.5rem;
+    box-shadow: 0 0 12px 4px var(--neon-green-accent), 0 2px 16px rgba(57,255,20,0.08);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background: #181a1b;
+    padding: 5px;
+}
+
+/* Carousel inner spacing */
+.carousel-inner {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* Game description in carousel */
+.carousel-caption,
+.game-description,
+.carousel-item .description {
+    background: rgba(16, 17, 19, 0.85);
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 0 16px var(--neon-green-accent), 0 2px 16px rgba(57,255,20,0.12);
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px var(--neon-green-accent);
+}
+
+/* Card and modal styling for minimalism */
 .card,
 .modal-content {
     border-radius: 1rem;
@@ -134,7 +150,7 @@ footer {
     background: #181a1b;
     color: var(--white);
     box-shadow: 0 0 16px var(--neon-green-accent), 0 2px 16px rgba(57, 255, 20, 0.08);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .review-card {
@@ -148,11 +164,12 @@ footer {
 }
 
 .review-container {
-    margin-top: 20px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .review-form {
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 
 .rating-input {
@@ -161,17 +178,24 @@ footer {
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
-    #content-wrap {
-        padding: 1rem 0;
-    }
-
+    .container,
+    #content-wrap,
     #app {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
     }
-
+    #gameCarousel {
+        padding: 0.5rem 0;
+    }
     .navbar-nav .nav-link {
         margin-right: 0.5rem;
         padding: 0.5rem 0.7rem;
     }
+}
+div.col-auto:nth-child(1){
+        margin-top: 10px;
+        margin-bottom: 10px;
+}
+.btn-close{
+        background-color: var(--neon-green-accent);
 }

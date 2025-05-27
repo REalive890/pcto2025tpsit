@@ -1,58 +1,64 @@
 //--------------------------------------------------------------------------------------------------------------------
-  async function bindLogin() {
-    const form = document.getElementById('loginForm');
-    if (!form) return;
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const jsonObj = {};
-      formData.forEach((value, key) => {
-        jsonObj[key] = value;
-      });
-      const res = await fetch('router.php?action=login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(jsonObj)
-      });
-      const result = await res.json();
-      if (result.success) {
-        localStorage.setItem("loggedIn", "true");
-        loadView("games_edit_reviews");
-      } else {
-        showAlert(result.message || "Login failed", "danger");
-      }
+async function bindLogin() {
+  const form = document.getElementById('loginForm');
+  if (!form) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const jsonObj = {};
+    formData.forEach((value, key) => {
+      jsonObj[key] = value;
     });
-  }
-  //--------------------------------------------------------------------------------------------------------------------
-  async function bindRegister() {
-    const form = document.getElementById('registerForm');
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-  
-      const jsonObj = {};
-      formData.forEach((value, key) => {
-        jsonObj[key] = value;
-      });
-  
-      const res = await fetch('router.php?action=register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(jsonObj)
-      });
-  
-      const result = await res.json();
-  
-      if (result.success) {
-        localStorage.setItem("loggedIn", "true");
-         showAlert(result.message, "success");
-      } else {
-        showAlert(result.message, "warning");
-      }
+    const res = await fetch('router.php?action=login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jsonObj)
     });
-  }
-  //--------------------------------------------------------------------------------------------------------------------
-  function bindBtnLogout() {
+    const result = await res.json();
+    if (result.success) {
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("username", result.username || jsonObj.username || "");
+      updateLoginStatus();
+      loadView("games_edit_reviews");
+    } else {
+      showAlert(result.message || "Login failed", "danger");
+      updateLoginStatus();
+    }
+  });
+}
+//--------------------------------------------------------------------------------------------------------------------
+async function bindRegister() {
+  const form = document.getElementById('registerForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    const jsonObj = {};
+    formData.forEach((value, key) => {
+      jsonObj[key] = value;
+    });
+
+    const res = await fetch('router.php?action=register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jsonObj)
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("username", result.username || jsonObj.username || "");
+      showAlert(result.message, "success");
+      updateLoginStatus();
+    } else {
+      showAlert(result.message, "warning");
+      updateLoginStatus();
+    }
+  });
+}
+//--------------------------------------------------------------------------------------------------------------------
+function bindBtnLogout() {
   const btn = document.querySelector('#logoutBtn');
   if (!btn) return;
 
@@ -67,7 +73,9 @@
 
       if (result.success) {
         localStorage.removeItem("loggedIn");
+        localStorage.removeItem("username");
         userId = null;
+        updateLoginStatus();
         loadView("login");
       } else {
         console.error("Errore nel logout:", result.message);

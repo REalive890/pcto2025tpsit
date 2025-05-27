@@ -31,9 +31,6 @@
                         <li class="nav-item">
                             <a id="logoutBtn" class="nav-link" href="#">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
                     </ul>
                     <span class="ms-auto navbar-text" id="loginStatus"></span>
                 </div>

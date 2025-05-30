@@ -17,9 +17,14 @@ async function bindLogin() {
     const result = await res.json();
     if (result.success) {
       localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("ruolo", result.ruolo);
       localStorage.setItem("username", result.username || jsonObj.username || "");
       updateLoginStatus();
-      loadView("games_edit_reviews");
+      if(result.ruolo==='admin')
+        loadView("admin");
+      else if(result.ruolo==='user')
+        loadView("games_edit_reviews");
+      else alert("Something went wrong while trying to check your role")
     } else {
       showAlert(result.message || "Login failed", "danger");
       updateLoginStatus();
@@ -48,6 +53,7 @@ async function bindRegister() {
 
     if (result.success) {
       localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("ruolo", result.ruolo);
       localStorage.setItem("username", result.username || jsonObj.username || "");
       showAlert(result.message, "success");
       updateLoginStatus();
@@ -74,6 +80,7 @@ function bindBtnLogout() {
       if (result.success) {
         localStorage.removeItem("loggedIn");
         localStorage.removeItem("username");
+        localStorage.removeItem("ruolo");
         userId = null;
         updateLoginStatus();
         loadView("login");

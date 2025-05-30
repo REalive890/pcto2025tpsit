@@ -40,3 +40,6 @@ now it is really late so i don't think it is worthy to continue however this pro
 cheklist:
 * clean the code
 first let's clean js'
+
+
+need to make the admin log. I'll just return data from the login controller-model so that i can make a check on the script to load the admin view or the client one

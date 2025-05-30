@@ -33,3 +33,25 @@
 [2025-05-28 00:37:07] INFO: Tentativo di login fallito (password errata): acharig47@gmail.com
 [2025-05-28 00:37:12] INFO: Tentativo di login fallito (password errata): acharig47@gmail.com
 [2025-05-28 00:37:22] INFO: Login effettuato con successo: acharig47@gmail.com
+[2025-05-29 19:12:35] INFO: Login effettuato con successo: acharig47@gmail.com
+[2025-05-29 19:14:00] INFO: Login effettuato con successo: acharig47@gmail.com
+[2025-05-30 00:10:01] INFO: Tentativo di login fallito (password errata): admin@admin.com
+[2025-05-30 00:10:06] INFO: Tentativo di login fallito (password errata): admin@admin.com
+[2025-05-30 00:10:21] INFO: Tentativo di login fallito (password errata): admin@admin.com
+[2025-05-30 00:10:27] INFO: Tentativo di login fallito (password errata): admin@admin.com
+[2025-05-30 00:12:30] ERROR: Errore DB in createUser: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin' in 'field list'
+[2025-05-30 00:12:40] ERROR: Errore DB in createUser: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin' in 'field list'
+[2025-05-30 00:13:06] ERROR: Errore DB in createUser: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin' in 'field list'
+[2025-05-30 00:13:39] ERROR: Errore DB in createUser: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'admin' in 'field list'
+[2025-05-30 00:14:30] INFO: Utente registrato con successo: admin@admin.com
+[2025-05-30 00:15:13] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:15:40] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:15:45] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:15:53] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:22:35] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:24:01] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:36:37] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:37:06] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:38:40] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 00:39:50] INFO: Login effettuato con successo: admin@admin.com
+[2025-05-30 01:03:11] INFO: Login effettuato con successo: admin@admin.com

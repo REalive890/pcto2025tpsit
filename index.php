@@ -43,7 +43,7 @@
         <!-- Content Wrap end -->
         <footer class="footer text-center mt-auto">
             <div class="container">
-                &copy; <?php echo date("Y"); ?> Simple Blog - All rights reserved.
+                &copy; <?php echo date("Y"); ?> Game Reviews - All rights reserved.
             </div>
         </footer>
     </div>

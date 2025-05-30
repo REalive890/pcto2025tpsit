@@ -50,7 +50,7 @@ class UserController {
                     $this->logger->info("$email Login Success");
                     
                     //return ['success' => true, 'message' => 'Login effettuato con successo'];
-                    echo json_encode(["success" => true, "message" => "Login Success", "data" => ["user_id" => $_SESSION["user_id"]]]);
+                    echo json_encode(["success" => true, "message" => "Login Success", "data" => ["user_id" => $_SESSION["user_id"]],'ruolo'=> $_SESSION['user_ruolo'],'username'=>$_SESSION['username']]);
                     
                     exit;
                 } else {

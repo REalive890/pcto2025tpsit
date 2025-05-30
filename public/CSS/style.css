@@ -49,7 +49,7 @@ body {
     margin-right: 1rem;
     border-radius: 0.5rem;
     padding: 0.5rem 1.2rem;
-    border: 2px solid var(--neon-green-accent) !important;
+    border: 2px solid var(--neon-green-accent) ;
     background: transparent !important;
     transition: background 0.2s, color 0.2s, border 0.2s;
     text-shadow: 0 0 4px var(--neon-green-accent);
@@ -60,9 +60,9 @@ body {
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:focus,
 .navbar-nav .nav-link:hover {
-    background: var(--neon-green-accent) !important;
+    background: var(--neon-green-accent);
     color: var(--white) !important;
-    border-color: var(--neon-green-accent) !important;
+    border-color: var(--neon-green-accent) ;
     box-shadow: 0 0 8px var(--neon-green-main);
 }
 
@@ -93,7 +93,7 @@ footer {
 .btn-danger,
 .btn-warning {
     background: transparent !important;
-    border: 2px solid var(--neon-green-accent) !important;
+    border: 2px solid var(--neon-green-accent) ;
     color: var(--white) !important;
     font-weight: 500;
     border-radius: 0.5rem;
@@ -105,8 +105,8 @@ footer {
 
 .btn:hover,
 .btn:focus {
-    background: var(--neon-green-accent) !important;
-    border-color: var(--neon-green-main) !important;
+    background: var(--neon-green-accent) ;
+    border-color: var(--neon-green-main) ;
     color: var(--white) !important;
     box-shadow: 0 0 16px var(--neon-green-main);
 }
@@ -198,4 +198,8 @@ div.col-auto:nth-child(1){
 }
 .btn-close{
         background-color: var(--neon-green-accent);
+}
+
+#btnLogin{
+    background-color: none;
 }

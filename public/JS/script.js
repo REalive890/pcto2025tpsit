@@ -1,17 +1,19 @@
 //tipica funzione di inizializzazione
 $(document).ready(function() {
   const isLoggedIn = localStorage.getItem("loggedIn");
-  loadView(isLoggedIn ? "games_edit_reviews" : "games_reviews")
-  //importante in .then almeno gli oggetti sono caricati
+  const ruolo=localStorage.getItem("ruolo");
+  if(isLoggedIn&&ruolo=="admin") loadView("admin");
+  else loadView(isLoggedIn?"games_edit_reviews":"games_reviews")
+    //importante in .then almeno gli oggetti sono caricati
   .then(() => {
     //serie di addeventListeners
-    bindBtnLogout();
-    bindBtnRegister();
-    bindBtnLogin();
     bindCarousel();
     bindFormReview();
     bindGamesReviews();
   });
+  bindBtnLogout();
+  bindBtnRegister();
+  bindBtnLogin();
 });
 
 function bindGamesReviews() {
@@ -38,6 +40,38 @@ async function loadView(view) {
     await loadGames();
     updateReviews(true);
   }
+  if(view==='admin') bindAdminControls();
+}
+function bindAdminControls(){
+  const tabs = document.querySelectorAll('#list-tab .list-group-item');
+    tabs.forEach(tab => {
+        tab.addEventListener('click',async function() {
+            const tabId = this.id;
+            if (tabId === 'list-video-games-list') {
+                const gamesSection=document.querySelector('#games-section');
+                const res=await fetch('router.php?action=getGames');
+                const games= await res.json();
+                gamesSection.innerHTML = games.data.map(game => createGameCard(game)).join('');
+              } else if (tabId === 'list-reviews-list') {
+                const reviewsSection=document.querySelector('#list-reviews');
+            } 
+        });
+    });
+     function createGameCard(game) {
+        return `
+            <div class="card" data-id="${game.id}">
+                <img src="images/${game.immagine}" class="card-img-top" alt="${game.titolo}">
+                <div class="card-body">
+                    <h5 class="card-title">${game.titolo}</h5>
+                    <p class="card-text">Genere: ${game.genere}</p>
+                    <p class="card-text">Piattaforma: ${game.piattaforma}</p>
+                    <p class="card-text">Data Inserimento: ${game.data_inserimento}</p>
+                    <button class="btn btn-primary modify-btn" data-id="${game.id}">Modify</button>
+                    <button class="btn btn-danger delete-btn" data-id="${game.id}">Delete</button>
+                </div>
+            </div>
+        `;
+    }
 }
 
 async function fetchReviewsFromServer(gameId) {

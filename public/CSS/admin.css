@@ -1,0 +1,52 @@
+:root {
+    --neon-purple-borders: #9431ee;
+    --neon-purple-background: rebeccapurple;
+}
+
+/* Borders */
+.navbar,
+.footer,
+footer,
+#gameCarousel,
+.card,
+.modal-content,
+.review-card {
+    border-color: var(--neon-purple-borders) !important;
+    box-shadow: 0 0 16px var(--neon-purple-borders), 0 2px 16px rgba(148, 49, 238, 0.08) !important;
+}
+
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.navbar-nav .nav-link {
+    border-color: var(--neon-purple-borders) !important;
+    box-shadow: 0 0 12px var(--neon-purple-borders), 0 2px 8px rgba(148, 49, 238, 0.07) !important;
+}
+
+.review-card {
+    box-shadow: 0 0 8px var(--neon-purple-borders) !important;
+}
+
+/* Text Shadows */
+.navbar .navbar-brand,
+.navbar-nav .nav-link,
+.navbar-text,
+.footer,
+footer,
+.card,
+.review-card,
+.carousel-caption,
+.game-description,
+.carousel-item .description {
+    text-shadow: 0 0 8px var(--neon-purple-borders), 0 0 4px var(--neon-purple-borders) !important;
+}
+/* backgrounds */
+.list-group-item.active{
+    background-color: var(--neon-purple-background);
+    border-color: var(--neon-purple-borders);
+    box-shadow: 0 0 4px var(--neon-purple-borders), 0 2px 16px rgba(148, 49, 238, 0.08)
+}
+/*other things*/

@@ -84,7 +84,7 @@ class User {
             }
 
             // Prepara la query per inserire un nuovo utente con email e password
-            $stmt = $this->db->prepare("INSERT INTO utenti (email, password_hash,username) VALUES (?, ?,?)");
+            $stmt = $this->db->prepare("INSERT INTO utenti (email, password_hash,username,ruolo) VALUES (?, ?,?,'user')");
 
             // Cifra la password in chiaro usando l'algoritmo predefinito
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -129,7 +129,7 @@ class User {
             }
 
             // Prepara la query per cercare un utente con l'email fornita
-            $stmt = $this->db->prepare("SELECT id, password_hash FROM utenti WHERE email = ?");
+            $stmt = $this->db->prepare("SELECT id, password_hash,ruolo,username FROM utenti WHERE email = ?");
 
             // Esegue la query
             $stmt->execute([$email]);
@@ -153,6 +153,8 @@ class User {
                 // Salva l'ID e l'email dell'utente nella sessione
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_email'] = $email;
+                $_SESSION['user_ruolo']=$user['ruolo'];
+                $_SESSION['username']=$user['username'];
 
                 // Registra nel log il successo del login
                 $this->logger->info("Login effettuato con successo: $email");

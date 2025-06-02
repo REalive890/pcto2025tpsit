@@ -45,11 +45,11 @@ async function loadView(view) {
 function bindAdminControls() {
   //first gonna bind isolately the tabs so that i can control better the flow of data
   //now is a mess
-  const tabs = document.querySelectorAll('#list-tab .list-group-item');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', async function () {
-      const tabId = this.id;
-      if (tabId === 'list-video-games-list') {
+  const tab_admin_games=document.getElementById("list-video-games-list");
+  console.log(tab_admin_games)
+  tab_admin_games.addEventListener("click",load_games);
+  load_games();  
+  async function load_games() {
         const gamesSection = document.querySelector('#games-section');
         const res2 = await fetch(`views/admin_games.html`);
         const html = await res2.text();
@@ -94,11 +94,7 @@ function bindAdminControls() {
         })
 
 
-      } else if (tabId === 'list-reviews-list') {
-        const reviewsSection = document.querySelector('#list-reviews');
       }
-    });
-  });
   function createGameCard(game) {
     let date = "";
     if (game.data_inserimento) {
@@ -120,7 +116,6 @@ function bindAdminControls() {
         </div>
     `;
   }
-
 }
 
 async function fetchReviewsFromServer(gameId) {

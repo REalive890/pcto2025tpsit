@@ -43,3 +43,5 @@ first let's clean js'
 
 
 need to make the admin log. I'll just return data from the login controller-model so that i can make a check on the script to load the admin view or the client one
+
+Today's goal: allow the admin to CRUD the reviews and the games.

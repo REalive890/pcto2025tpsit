@@ -63,6 +63,12 @@ switch ($action) {
         // id_review comes from the JS
         echo json_encode($controller->deleteReview($data['id_review'], $_SESSION['user_id']));
         break;
-    
+    case 'admin_update_game':
+        require_once 'config/auth.php';
+        $controller= new GameController($pdo);
+        $data = json_decode(file_get_contents('php://input'), true);
+        echo json_encode($controller->updateGame($data['idGame'],$data['data_inserimento'],$data['genere'],$data['immagine'],$data['piattaforma'],$data['titolo']));
+        break;
+
 }
 ?>

@@ -1,16 +1,16 @@
 //tipica funzione di inizializzazione
-$(document).ready(function() {
+$(document).ready(function () {
   const isLoggedIn = localStorage.getItem("loggedIn");
-  const ruolo=localStorage.getItem("ruolo");
-  if(isLoggedIn&&ruolo=="admin") loadView("admin");
-  else loadView(isLoggedIn?"games_edit_reviews":"games_reviews")
+  const ruolo = localStorage.getItem("ruolo");
+  if (isLoggedIn && ruolo == "admin") loadView("admin");
+  else loadView(isLoggedIn ? "games_edit_reviews" : "games_reviews")
     //importante in .then almeno gli oggetti sono caricati
-  .then(() => {
-    //serie di addeventListeners
-    bindCarousel();
-    bindFormReview();
-    bindGamesReviews();
-  });
+    .then(() => {
+      //serie di addeventListeners
+      bindCarousel();
+      bindFormReview();
+      bindGamesReviews();
+    });
   bindBtnLogout();
   bindBtnRegister();
   bindBtnLogin();
@@ -25,7 +25,7 @@ function bindGamesReviews() {
 }
 
 async function loadView(view) {
-//forse importante quanto il router.php, mostra e cambia la vista
+  //forse importante quanto il router.php, mostra e cambia la vista
   const res = await fetch(`views/${view}.html`);
   const html = await res.text();
   document.querySelector('#app').innerHTML = html;
@@ -40,38 +40,87 @@ async function loadView(view) {
     await loadGames();
     updateReviews(true);
   }
-  if(view==='admin') bindAdminControls();
+  if (view === 'admin') bindAdminControls();
 }
-function bindAdminControls(){
+function bindAdminControls() {
+  //first gonna bind isolately the tabs so that i can control better the flow of data
+  //now is a mess
   const tabs = document.querySelectorAll('#list-tab .list-group-item');
-    tabs.forEach(tab => {
-        tab.addEventListener('click',async function() {
-            const tabId = this.id;
-            if (tabId === 'list-video-games-list') {
-                const gamesSection=document.querySelector('#games-section');
-                const res=await fetch('router.php?action=getGames');
-                const games= await res.json();
-                gamesSection.innerHTML = games.data.map(game => createGameCard(game)).join('');
-              } else if (tabId === 'list-reviews-list') {
-                const reviewsSection=document.querySelector('#list-reviews');
-            } 
-        });
+  tabs.forEach(tab => {
+    tab.addEventListener('click', async function () {
+      const tabId = this.id;
+      if (tabId === 'list-video-games-list') {
+        const gamesSection = document.querySelector('#games-section');
+        const res2 = await fetch(`views/admin_games.html`);
+        const html = await res2.text();
+        gamesSection.innerHTML = html;
+        const res = await fetch('router.php?action=getGames');
+        const games = await res.json();
+        games.data.forEach(game=>{
+          gamesSection.querySelector('.card-deck').innerHTML +=createGameCard(game);
+
+          const btn_admin_update_game = document.querySelector(".card-deck .card:last-of-type button:first-of-type");
+          const btn_admin_delete_game = document.querySelector(".card-deck .card:last-of-type button:last-of-type");
+  
+          btn_admin_update_game.addEventListener('click', async function () {
+            const card = btn_admin_update_game.closest('.card');
+            const idGame = card.getAttribute('data-idGame');
+            const titolo = card.querySelector('textarea[placeholder="Titolo"]').value;
+             const immagine = card.querySelector('input[placeholder="Immagine"]').value;
+            const genere = card.querySelector('textarea[placeholder="Genere"]').value;
+            const piattaforma = card.querySelector('textarea[placeholder="Piattaforma"]').value;
+            const data_inserimento = card.querySelector('input[type="date"]').value;
+  
+            const res = await fetch('router.php?action=admin_update_game', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                idGame: idGame,
+                 immagine: immagine,
+                titolo: titolo,
+                genere: genere,
+                piattaforma: piattaforma,
+                data_inserimento: data_inserimento
+              })
+            })
+            const result=await res.json();
+            console.log(result)
+  
+          });
+          console.log(btn_admin_update_game);
+          console.log(btn_admin_delete_game);
+        })
+
+
+      } else if (tabId === 'list-reviews-list') {
+        const reviewsSection = document.querySelector('#list-reviews');
+      }
     });
-     function createGameCard(game) {
-        return `
-            <div class="card" data-id="${game.id}">
-                <img src="images/${game.immagine}" class="card-img-top" alt="${game.titolo}">
-                <div class="card-body">
-                    <h5 class="card-title">${game.titolo}</h5>
-                    <p class="card-text">Genere: ${game.genere}</p>
-                    <p class="card-text">Piattaforma: ${game.piattaforma}</p>
-                    <p class="card-text">Data Inserimento: ${game.data_inserimento}</p>
-                    <button class="btn btn-primary modify-btn" data-id="${game.id}">Modify</button>
-                    <button class="btn btn-danger delete-btn" data-id="${game.id}">Delete</button>
-                </div>
-            </div>
-        `;
+  });
+  function createGameCard(game) {
+    let date = "";
+    if (game.data_inserimento) {
+      const d = new Date(game.data_inserimento);
+      date = d.toISOString().split('T')[0];
     }
+    return `
+        <div class="card" style="width: 18rem;" data-idGame="${game.id}">
+            <img class="card-img-top" src="images/${game.immagine}" alt="${game.titolo}">
+            <div class="card-body">
+                <input type="text" class="form-control mb-2" placeholder="Immagine" value="${game.immagine}" />
+                <textarea class="form-control mb-2" placeholder="Titolo">${game.titolo}</textarea>
+                <textarea class="form-control mb-2" placeholder="Genere">${game.genere}</textarea>
+                <textarea class="form-control mb-2" placeholder="Piattaforma">${game.piattaforma}</textarea>
+                <input type="date" class="form-control mb-2" value="${date}" placeholder="Data Inserimento" />
+                <button class="btn btn-primary modify-btn" data-idGame="${game.id}">Modify</button>
+                <button class="btn btn-danger delete-btn" data-idGame="${game.id}">Delete</button>
+            </div>
+        </div>
+    `;
+  }
+
 }
 
 async function fetchReviewsFromServer(gameId) {
@@ -139,22 +188,22 @@ function bindFormReview() {
         rating: rating
       })
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.success) {
-        $('#comment').val('');
-        $('#rating').val('');
-        updateReviews(true);
-      } else {
-        loadView("login");
-        alert('Error adding review: ' + data.message + "you're being redirected to the login page");
-      }
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          $('#comment').val('');
+          $('#rating').val('');
+          updateReviews(true);
+        } else {
+          loadView("login");
+          alert('Error adding review: ' + data.message + "you're being redirected to the login page");
+        }
+      });
   });
 }
 

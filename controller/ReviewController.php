@@ -5,7 +5,12 @@ class ReviewController {
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
+    public function getAllReviews() {
+        $stmt = $this->pdo->query('SELECT * FROM recensioni');
+        // Fetch all reviews for the specified game ID
+        echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
 
+    }
     public function getReviewsById($id) {
         $stmt = $this->pdo->prepare('SELECT * FROM recensioni WHERE id_gioco = ?');
         $stmt->execute([$id]);

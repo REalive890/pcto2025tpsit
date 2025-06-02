@@ -43,13 +43,35 @@ async function loadView(view) {
   if (view === 'admin') bindAdminControls();
 }
 function bindAdminControls() {
-  //first gonna bind isolately the tabs so that i can control better the flow of data
-  //now is a mess
+  //lets continue for the second tab
+  //structure of a review: id, id_utente,id_gioco,commento,voto,data_recensione
   const tab_admin_games=document.getElementById("list-video-games-list");
   console.log(tab_admin_games)
   tab_admin_games.addEventListener("click",load_games);
+  //first lets add this event to the button copy_paste
+  const tab_admin_reviews=document.getElementById("list-reviews-list");
+  console.log(tab_admin_reviews)
+  tab_admin_reviews.addEventListener("click",load_reviews);
   load_games();  
-  async function load_games() {
+  async function load_reviews() {
+    //change the section
+        const reviewsSection = document.querySelector('#reviews-section');
+        const res2 = await fetch(`views/admin_reviews.html`);
+        const html = await res2.text();
+        reviewsSection.innerHTML = html;
+        const res = await fetch('router.php?action=getAllReviews');
+        //assumendo i dati siano arrivati senza problemi
+        //creazione dinamica delle review
+        console.log(res)
+        const reviews = await res.json();
+        reviews.data.forEach(review=>{
+          reviewsSection.querySelector('.list-group').innerHTML +=createReviewItem(review);
+
+        })
+
+
+      }
+        async function load_games() {
         const gamesSection = document.querySelector('#games-section');
         const res2 = await fetch(`views/admin_games.html`);
         const html = await res2.text();
@@ -95,6 +117,25 @@ function bindAdminControls() {
 
 
       }
+      function createReviewItem(review) {
+    let date = "";
+    if (review.data_recensione) {
+        const d = new Date(review.data_recensione);
+        date = d.toISOString().split('T')[0];
+    }
+    return `
+        <li class="list-group-item" data-idReview="${review.id}">
+            <div class="mb-2"><strong>ID Review:</strong> ${review.id}</div>
+            <div class="mb-2"><strong>ID Utente:</strong> ${review.id_utente}</div>
+            <div class="mb-2"><strong>ID Gioco:</strong> ${review.id_gioco}</div>
+            <textarea class="form-control mb-2" placeholder="Commento">${review.commento}</textarea>
+            <textarea class="form-control mb-2" placeholder="Voto">${review.voto}</textarea>
+            <input type="date" class="form-control mb-2" value="${date}" placeholder="Data Recensione" />
+            <button class="btn btn-primary modify-review-btn" data-idReview="${review.id}">Modify</button>
+            <button class="btn btn-danger delete-review-btn" data-idReview="${review.id}">Delete</button>
+        </li>
+    `;
+}
   function createGameCard(game) {
     let date = "";
     if (game.data_inserimento) {

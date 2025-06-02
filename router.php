@@ -33,6 +33,10 @@ switch ($action) {
         $controller = new GameController($pdo); // Assuming you have a GameController
         $controller->getAllGames();
         break;
+    case 'getAllReviews':
+        $controller = new ReviewController($pdo); // Assuming you have a GameController
+        $controller->getAllReviews();
+        break;
     case 'getReviews':
         $controller = new ReviewController($pdo); // Assuming you have a GameController
         echo json_encode($controller->getReviewsById($_GET['id_game']));

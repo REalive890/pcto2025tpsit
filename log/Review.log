@@ -4,3 +4,9 @@
 [2025-06-03 10:17:29] INFO: ReviewController initialized.
 [2025-06-03 10:30:22] INFO: ReviewController initialized.
 [2025-06-03 10:31:00] INFO: ReviewController initialized.
+[2025-06-03 11:57:22] INFO: ReviewController initialized.
+[2025-06-03 11:57:22] INFO: data: {"id":1,"id_utente":2,"id_gioco":1,"voto":5,"commento":"Un capolavoro assoluto, libert\u00e0 totale e atmosfera incredibile.","data_recensione":"2025-05-23 16:25:11"}
+[2025-06-03 11:58:29] INFO: ReviewController initialized.
+[2025-06-03 11:58:29] INFO: data: [{"id":1,"id_utente":2,"id_gioco":1,"voto":5,"commento":"Un capolavoro assoluto, libert\u00e0 totale e atmosfera incredibile.","data_recensione":"2025-05-23 16:25:11"},{"id":2,"id_utente":3,"id_gioco":2,"voto":8,"commento":"Grafica fantastica e combattimenti epici, ma un po\u2019 ripetitivo.","data_recensione":"2025-05-23 16:25:11"},{"id":6,"id_utente":4,"id_gioco":1,"voto":5,"commento":"hi my name is giorgio but my real name is giovanni giorgio","data_recensione":"2025-05-27 23:47:45"}]
+[2025-06-03 12:00:19] INFO: ReviewController initialized.
+[2025-06-03 12:00:36] INFO: ReviewController initialized.

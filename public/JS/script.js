@@ -62,7 +62,6 @@ function bindAdminControls() {
     const res = await fetch('router.php?action=review_read_all');
     //assumendo i dati siano arrivati senza problemi
     //creazione dinamica delle review
-    console.log(res)
     const reviews = await res.json();
     reviews.data.forEach(review => {
       const review_item = createReviewItem(review);
@@ -227,11 +226,12 @@ function bindAdminControls() {
 }
 
 async function fetchReviewsFromServer(gameId) {
-  const response = await fetch(`router.php?action=getReviews&id_game=${gameId}`);
-  return response.json();
+  const response = await fetch(`router.php?action=review_read_game&id_game=${gameId}`);
+  let reviews = await response.json();
+  return  reviews.data;
 }
 
-async function getReviews(gameId, force) {
+async function review_read_game(gameId, force) {
   const cacheKey = `reviews_${gameId}`;
   const cachedData = localStorage.getItem(cacheKey);
   if (cachedData && !force) {
@@ -253,7 +253,7 @@ async function getReviews(gameId, force) {
 
 async function updateReviews(force = false) {
   const gameId = $('.carousel-item.active').data('game-id');
-  const reviews = await getReviews(gameId, force);
+  const reviews = await review_read_game(gameId, force);
   const reviewsContainer = $('#reviews');
   reviewsContainer.empty();
   reviews.forEach(review => {

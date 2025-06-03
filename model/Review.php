@@ -55,12 +55,16 @@
         public function read_all(){
             try {
                 $stmt = $this->db->query("SELECT * FROM recensioni");
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
                 $this->log("Errore DB in read_all: " . $e->getMessage());
                 return null;
             }
         }
+        /**
+         * false in case of error, true otherwise
+         * @return bool
+         */
         public function update($id, $voto, $commento){
             try {
                 $stmt = $this->db->prepare("UPDATE recensioni SET voto = ?, commento = ? WHERE id = ?");
@@ -71,6 +75,10 @@
                 return false;
             }
         }
+        /**
+         * false in case of error, true otherwise
+         * @return bool
+         */
         public function delete($id){
             try {
                 $stmt = $this->db->prepare("DELETE FROM recensioni WHERE id = ?");

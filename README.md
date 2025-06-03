@@ -47,3 +47,7 @@ need to make the admin log. I'll just return data from the login controller-mode
 Today's goal: allow the admin to CRUD the reviews and the games.
 
 need to create the create methods, both for game and reviews admin. Now i need to refactor and clean all my mess
+
+tried to logout... it did't end well: the reviews didn't appear, so what i need to do is bind the html when it logs out
+
+continuing to refactor

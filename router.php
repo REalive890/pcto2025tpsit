@@ -34,7 +34,7 @@ switch ($action) {
         break;
     case 'review_read_all':
         $controller = new ReviewController($pdo); // Assuming you have a GameController
-        $controller->review_read_all();
+        $controller->read_all();
         break;
     case 'deleteReviewAdmin':
         $controller = new ReviewController($pdo);
@@ -49,9 +49,9 @@ switch ($action) {
         // id_review, comment, rating come from the JS
         echo json_encode($controller->editReview($data['id_review'], $data['comment'], $data['rating'], $data['user_id']));
         break;
-    case 'getReviews':
+    case 'review_read_game':
         $controller = new ReviewController($pdo); // Assuming you have a GameController
-        echo json_encode($controller->getReviewsById($_GET['id_game']));
+        $controller->read_game($_GET['id_game']);
         break;
     case 'getMyReviews':
         $controller = new ReviewController($pdo); // Assuming you have a GameController

@@ -1,26 +1,32 @@
 <?php
 require_once 'model/Review.php';
+require_once 'config/logger.php';
 class ReviewController {
     private $pdo;
     private $review;
+    private $logger;
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
         $this->review = new Review($pdo);
-        $this->review->log("ReviewController initialized.");
+        $this->logger = new Logger("log/ReviewController.log");
     }
-    public function review_read_all() {
+    public function read_all() {
         $data= $this->review->read_all();
+        // $this->review->log("data: ".json_encode($data));
         $success = $data !== null;
         // Fetch all reviews for the specified game ID
         echo json_encode(['success' => $success, 'data' =>$data]);
 
     }
-    public function getReviewsById($id) {
-        $stmt = $this->pdo->prepare('SELECT * FROM recensioni WHERE id_gioco = ?');
-        $stmt->execute([$id]);
+    public function read_game($id) {
+        $data = $this->review->read_all();
+        $data = array_filter($data, function($review) use ($id) {
+            return $review['id_gioco'] == $id;
+        });
+        $data = array_values($data); // Re-index the array
+        $success = $data !== null;
         // Fetch all reviews for the specified game ID
-        return $stmt->fetchAll();
-
+        echo json_encode(['success' => $success, 'data' => $data]);
     }
     public function addReview($id_game, $review, $rating, $user_id) {
         // Prepare the SQL statement to insert a new review

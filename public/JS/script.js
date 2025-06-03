@@ -1,30 +1,40 @@
-//tipica funzione di inizializzazione
-$(document).ready(function () {
+/**
+ * HATE THIS CONFUSING FILE STRUCTURE
+ */
+
+async function load_games_reviews() {
   const isLoggedIn = localStorage.getItem("loggedIn");
   const ruolo = localStorage.getItem("ruolo");
-  if (isLoggedIn && ruolo == "admin") loadView("admin");
-  else loadView(isLoggedIn ? "games_edit_reviews" : "games_reviews")
-    //importante in .then almeno gli oggetti sono caricati
-    .then(() => {
-      //serie di addeventListeners
-      bindCarousel();
-      bindFormReview();
-      bindGamesReviews();
-    });
-  bindBtnLogout();
-  bindBtnRegister();
-  bindBtnLogin();
+  if (isLoggedIn && ruolo == "admin") load_view("admin");
+  else load_view(isLoggedIn ? "games_edit_reviews" : "games_reviews")
+  
+}
+$(document).ready(function () {
+  add_listeners_header();
+  load_games_reviews();  
 });
 
-function bindGamesReviews() {
+function add_listeners_header() {
+  add_listener_btn_home();
+  add_listener_btn_login();
+  add_listener_btn_register();
+  add_listener_btn_logout();
+}
+
+function add_listener_btn_home() {
   const btn = document.querySelector('#home');
   if (!btn) return;
   btn.addEventListener('click', () => {
-    loadView("games_reviews");
+    if(localStorage.getItem("loggedIn") === "true" && localStorage.getItem("ruolo") === "admin")
+      load_view("admin");
+    else if(localStorage.getItem("loggedIn") === "true")
+      load_view("games_edit_reviews");
+    else
+    load_view("games_reviews");
   });
 }
 
-async function loadView(view) {
+async function load_view(view) {
   //forse importante quanto il router.php, mostra e cambia la vista
   const res = await fetch(`views/${view}.html`);
   const html = await res.text();
@@ -38,7 +48,9 @@ async function loadView(view) {
   //forse questa è l'unico snippet da poter lasciare
   if (view === "games_reviews" || view === "games_edit_reviews") {
     await loadGames();
-    updateReviews(true);
+    add_listener_carousel_games();
+    add_listener_form_review();
+    load_reviews_game(true);
   }
   if (view === 'admin') bindAdminControls();
 }
@@ -251,7 +263,7 @@ async function review_read_game(gameId, force) {
   return reviews;
 }
 
-async function updateReviews(force = false) {
+async function load_reviews_game(force = false) {
   const gameId = $('.carousel-item.active').data('game-id');
   const reviews = await review_read_game(gameId, force);
   const reviewsContainer = $('#reviews');
@@ -268,7 +280,7 @@ async function updateReviews(force = false) {
   });
 }
 
-function bindFormReview() {
+function add_listener_form_review() {
   $('#comment').on('focus', function () {
     $('#gameCarousel').carousel('pause');
   });
@@ -301,21 +313,21 @@ function bindFormReview() {
         if (data.success) {
           $('#comment').val('');
           $('#rating').val('');
-          updateReviews(true);
+          load_reviews_game(true);
         } else {
-          loadView("login");
+          load_view("login");
           alert('Error adding review: ' + data.message + "you're being redirected to the login page");
         }
       });
   });
 }
 
-function bindCarousel() {
+function add_listener_carousel_games() {
   $('#gameCarousel').carousel();
   console.log("Carousel initialized");
   document.getElementById('gameCarousel').addEventListener('slid.bs.carousel', function () {
     console.log("Carousel slid event triggered, updating reviews");
-    updateReviews();
+    load_reviews_game();
   });
 }
 

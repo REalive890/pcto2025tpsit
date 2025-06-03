@@ -51,3 +51,16 @@ need to create the create methods, both for game and reviews admin. Now i need t
 tried to logout... it did't end well: the reviews didn't appear, so what i need to do is bind the html when it logs out
 
 continuing to refactor
+
+I think i need to put some order in this mess, i have too much js files and all of them are somehow separated but still need one another to function. This is just useless.
+
+The idea is to divide all the js' in their component dominio, the only exceptions are script.js,user.js and utilities.js
+
+the idea is to just link them to their html as i've done with with the style.
+
+first one: login.html
+
+doesn0tìì't work this method, it would be some kind of html injection so obviously it just does not work,
+how about just starting the binding when the component loads? Like The main does.
+
+nothing i'll just create chunker methods

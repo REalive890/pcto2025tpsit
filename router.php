@@ -14,20 +14,19 @@ $action = $_GET['action'] ?? '';
 
 switch ($action) {
       // ==== USER ====
-        case 'login':
-            $controller = new UserController($pdo);
-            $controller->login();
-            break;
+    case 'login':
+        $controller = new UserController($pdo);
+        $controller->login();
+        break;
+    case 'register':
+        $controller = new UserController($pdo);
+        $controller->register();
+        break;
 
-        case 'register':
-            $controller = new UserController($pdo);
-            $controller->register();
-            break;
-
-        case 'logout':
-            $controller = new UserController($pdo);
-            $controller->logout();
-            break;
+    case 'logout':
+        $controller = new UserController($pdo);
+        $controller->logout();
+        break;
     // ==== GAME & REVIEWS ====
     case 'getGames':
         $controller = new GameController($pdo); // Assuming you have a GameController

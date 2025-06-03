@@ -1,9 +1,12 @@
 <?php
+require_once 'model/Review.php';
 class ReviewController {
     private $pdo;
-
+    private $review;
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
+        $this->review = new Review($pdo);
+        $this->review->log("ReviewController initialized.");
     }
     public function getAllReviews() {
         $stmt = $this->pdo->query('SELECT * FROM recensioni');

@@ -20,6 +20,10 @@
         public function log($message){
             $this->logger->info($message);
         }
+        /**
+         * Returns true if the review was created successfully, false otherwise.
+         * @return bool
+         */
         public function create($id_utente, $id_gioco, $voto, $commento){
             try {
                 $stmt = $this->db->prepare("INSERT INTO recensioni (id_utente, id_gioco, voto, commento) VALUES (?, ?, ?, ?)");
@@ -30,6 +34,10 @@
                 return false;
             }
         }
+        /**
+         * Returns null if the operation was not successful, otherwise returns an associative array
+         * @param mixed $id
+         */
         public function read($id){
             try {
                 $stmt = $this->db->prepare("SELECT * FROM recensioni WHERE id = ?");
@@ -40,6 +48,10 @@
                 return null;
             }
         }
+        /**
+         * returns null in case of error, otherwise returns an associative array with all reviews
+         * @return array|null
+         */
         public function read_all(){
             try {
                 $stmt = $this->db->query("SELECT * FROM recensioni");

@@ -59,7 +59,7 @@ function bindAdminControls() {
     const res2 = await fetch(`views/admin_reviews.html`);
     const html = await res2.text();
     reviewsSection.innerHTML = html;
-    const res = await fetch('router.php?action=getAllReviews');
+    const res = await fetch('router.php?action=review_read_all');
     //assumendo i dati siano arrivati senza problemi
     //creazione dinamica delle review
     console.log(res)

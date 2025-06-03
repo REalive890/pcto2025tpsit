@@ -32,9 +32,9 @@ switch ($action) {
         $controller = new GameController($pdo); // Assuming you have a GameController
         $controller->getAllGames();
         break;
-    case 'getAllReviews':
+    case 'review_read_all':
         $controller = new ReviewController($pdo); // Assuming you have a GameController
-        $controller->getAllReviews();
+        $controller->review_read_all();
         break;
     case 'deleteReviewAdmin':
         $controller = new ReviewController($pdo);

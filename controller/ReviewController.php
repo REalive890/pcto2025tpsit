@@ -8,10 +8,11 @@ class ReviewController {
         $this->review = new Review($pdo);
         $this->review->log("ReviewController initialized.");
     }
-    public function getAllReviews() {
-        $stmt = $this->pdo->query('SELECT * FROM recensioni');
+    public function review_read_all() {
+        $data= $this->review->read_all();
+        $success = $data !== null;
         // Fetch all reviews for the specified game ID
-        echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
+        echo json_encode(['success' => $success, 'data' =>$data]);
 
     }
     public function getReviewsById($id) {

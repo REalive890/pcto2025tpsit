@@ -37,6 +37,19 @@ switch ($action) {
         $controller = new ReviewController($pdo); // Assuming you have a GameController
         $controller->getAllReviews();
         break;
+    case 'deleteReviewAdmin':
+        $controller = new ReviewController($pdo);
+        $data = json_decode(file_get_contents('php://input'), true);
+        // id_review comes from the JS
+        echo json_encode($controller->deleteReview($data['id_review'], $data['id_utente']));
+        break;
+    case 'editReviewAdmin':
+        require_once 'config/auth.php'; // Ensure user is authenticated
+        $controller = new ReviewController($pdo);
+        $data = json_decode(file_get_contents('php://input'), true);
+        // id_review, comment, rating come from the JS
+        echo json_encode($controller->editReview($data['id_review'], $data['comment'], $data['rating'], $data['user_id']));
+        break;
     case 'getReviews':
         $controller = new ReviewController($pdo); // Assuming you have a GameController
         echo json_encode($controller->getReviewsById($_GET['id_game']));

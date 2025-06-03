@@ -45,97 +45,164 @@ async function loadView(view) {
 function bindAdminControls() {
   //lets continue for the second tab
   //structure of a review: id, id_utente,id_gioco,commento,voto,data_recensione
-  const tab_admin_games=document.getElementById("list-video-games-list");
+  const tab_admin_games = document.getElementById("list-video-games-list");
   console.log(tab_admin_games)
-  tab_admin_games.addEventListener("click",load_games);
+  tab_admin_games.addEventListener("click", load_games);
   //first lets add this event to the button copy_paste
-  const tab_admin_reviews=document.getElementById("list-reviews-list");
+  const tab_admin_reviews = document.getElementById("list-reviews-list");
   console.log(tab_admin_reviews)
-  tab_admin_reviews.addEventListener("click",load_reviews);
-  load_games();  
+  tab_admin_reviews.addEventListener("click", load_reviews);
+  load_games();
   async function load_reviews() {
     //change the section
-        const reviewsSection = document.querySelector('#reviews-section');
-        const res2 = await fetch(`views/admin_reviews.html`);
-        const html = await res2.text();
-        reviewsSection.innerHTML = html;
-        const res = await fetch('router.php?action=getAllReviews');
-        //assumendo i dati siano arrivati senza problemi
-        //creazione dinamica delle review
-        console.log(res)
-        const reviews = await res.json();
-        reviews.data.forEach(review=>{
-          reviewsSection.querySelector('.list-group').innerHTML +=createReviewItem(review);
+    const reviewsSection = document.querySelector('#reviews-section');
+    const res2 = await fetch(`views/admin_reviews.html`);
+    const html = await res2.text();
+    reviewsSection.innerHTML = html;
+    const res = await fetch('router.php?action=getAllReviews');
+    //assumendo i dati siano arrivati senza problemi
+    //creazione dinamica delle review
+    console.log(res)
+    const reviews = await res.json();
+    reviews.data.forEach(review => {
+      const review_item = createReviewItem(review);
+      reviewsSection.querySelector('.list-group').appendChild(review_item);
+      // bind_admin_review_btn()
+    })
+    reviewsSection.querySelectorAll(".delete-review-btn").forEach(
+      review_item => review_item.addEventListener('click', async function () {
+        console.log(this)
+        const reviewId = this.dataset.idreview;
+        const userId = this.dataset.idutente;
+        console.log(reviewId, userId)
+        const res = await fetch('router.php?action=deleteReviewAdmin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_review: reviewId, id_utente: userId })
+        });
+        console.log(await res.json())
+      })
+    )
+    reviewsSection.querySelectorAll(".modify-review-btn").forEach(
+      review_item => review_item.addEventListener('click', async function () {
+        console.log(this)
+        const reviewId = this.dataset.idreview;
+        const userId = this.dataset.idutente;
 
-        })
-
-
+        const commento = this.parentElement.querySelector('li.list-group-item:nth-child(1) > textarea:nth-child(4)').value;
+        const voto = this.parentElement.querySelector('li.list-group-item:nth-child(1) > textarea:nth-child(5)').value;
+        console.log(reviewId, commento, voto, userId)
+        const res = await fetch('router.php?action=editReviewAdmin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_review: reviewId, comment: commento, rating: voto, user_id: userId })
+        });
+        console.log(await res.json())
       }
-        async function load_games() {
-        const gamesSection = document.querySelector('#games-section');
-        const res2 = await fetch(`views/admin_games.html`);
-        const html = await res2.text();
-        gamesSection.innerHTML = html;
-        const res = await fetch('router.php?action=getGames');
-        const games = await res.json();
-        games.data.forEach(game=>{
-          gamesSection.querySelector('.card-deck').innerHTML +=createGameCard(game);
+      )
+    )
+  }
+  //aknowledged
 
-          const btn_admin_update_game = document.querySelector(".card-deck .card:last-of-type button:first-of-type");
-          const btn_admin_delete_game = document.querySelector(".card-deck .card:last-of-type button:last-of-type");
-  
-          btn_admin_update_game.addEventListener('click', async function () {
-            const card = btn_admin_update_game.closest('.card');
-            const idGame = card.getAttribute('data-idGame');
-            const titolo = card.querySelector('textarea[placeholder="Titolo"]').value;
-             const immagine = card.querySelector('input[placeholder="Immagine"]').value;
-            const genere = card.querySelector('textarea[placeholder="Genere"]').value;
-            const piattaforma = card.querySelector('textarea[placeholder="Piattaforma"]').value;
-            const data_inserimento = card.querySelector('input[type="date"]').value;
-  
-            const res = await fetch('router.php?action=admin_update_game', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                idGame: idGame,
-                 immagine: immagine,
-                titolo: titolo,
-                genere: genere,
-                piattaforma: piattaforma,
-                data_inserimento: data_inserimento
-              })
-            })
-            const result=await res.json();
-            console.log(result)
-  
-          });
-          console.log(btn_admin_update_game);
-          console.log(btn_admin_delete_game);
+      async function load_games() {
+    const gamesSection = document.querySelector('#games-section');
+    const res2 = await fetch(`views/admin_games.html`);
+    const html = await res2.text();
+    gamesSection.innerHTML = html;
+    const res = await fetch('router.php?action=getGames');
+    const games = await res.json();
+    games.data.forEach(game => {
+      gamesSection.querySelector('.card-deck').innerHTML += createGameCard(game);
+
+      const btn_admin_update_game = document.querySelector(".card-deck .card:last-of-type button:first-of-type");
+      const btn_admin_delete_game = document.querySelector(".card-deck .card:last-of-type button:last-of-type");
+
+      btn_admin_update_game.addEventListener('click', async function () {
+        const card = btn_admin_update_game.closest('.card');
+        const idGame = card.getAttribute('data-idGame');
+        const titolo = card.querySelector('textarea[placeholder="Titolo"]').value;
+        const immagine = card.querySelector('input[placeholder="Immagine"]').value;
+        const genere = card.querySelector('textarea[placeholder="Genere"]').value;
+        const piattaforma = card.querySelector('textarea[placeholder="Piattaforma"]').value;
+        const data_inserimento = card.querySelector('input[type="date"]').value;
+
+        const res = await fetch('router.php?action=admin_update_game', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idGame: idGame,
+            immagine: immagine,
+            titolo: titolo,
+            genere: genere,
+            piattaforma: piattaforma,
+            data_inserimento: data_inserimento
+          })
         })
+        const result = await res.json();
+        console.log(result)
+
+      });
+      console.log(btn_admin_update_game);
+      console.log(btn_admin_delete_game);
+    })
 
 
-      }
-      function createReviewItem(review) {
+  }
+  function createReviewItem(review) {
     let date = "";
     if (review.data_recensione) {
-        const d = new Date(review.data_recensione);
-        date = d.toISOString().split('T')[0];
+      const d = new Date(review.data_recensione);
+      date = d.toISOString().split('T')[0];
     }
-    return `
-        <li class="list-group-item" data-idReview="${review.id}">
-            <div class="mb-2"><strong>ID Review:</strong> ${review.id}</div>
-            <div class="mb-2"><strong>ID Utente:</strong> ${review.id_utente}</div>
-            <div class="mb-2"><strong>ID Gioco:</strong> ${review.id_gioco}</div>
-            <textarea class="form-control mb-2" placeholder="Commento">${review.commento}</textarea>
-            <textarea class="form-control mb-2" placeholder="Voto">${review.voto}</textarea>
-            <input type="date" class="form-control mb-2" value="${date}" placeholder="Data Recensione" />
-            <button class="btn btn-primary modify-review-btn" data-idReview="${review.id}">Modify</button>
-            <button class="btn btn-danger delete-review-btn" data-idReview="${review.id}">Delete</button>
-        </li>
+
+    const li = document.createElement('li');
+    li.className = 'list-group-item';
+    li.setAttribute('data-idReview', review.id);
+
+    li.innerHTML = `
+        <div class="mb-2"><strong>ID Review:</strong> ${review.id}</div>
+        <div class="mb-2"><strong>ID Utente:</strong> ${review.id_utente}</div>
+        <div class="mb-2"><strong>ID Gioco:</strong> ${review.id_gioco}</div>
     `;
-}
+
+    const textareaCommento = document.createElement('textarea');
+    textareaCommento.className = 'form-control mb-2';
+    textareaCommento.placeholder = 'Commento';
+    textareaCommento.value = review.commento;
+
+    const textareaVoto = document.createElement('textarea');
+    textareaVoto.className = 'form-control mb-2';
+    textareaVoto.placeholder = 'Voto';
+    textareaVoto.value = review.voto;
+
+    const inputDate = document.createElement('input');
+    inputDate.type = 'date';
+    inputDate.className = 'form-control mb-2';
+    inputDate.placeholder = 'Data Recensione';
+    inputDate.value = date;
+
+    const btnModify = document.createElement('button');
+    btnModify.className = 'btn btn-primary modify-review-btn';
+    btnModify.setAttribute('data-idUtente', review.id_utente);
+    btnModify.setAttribute('data-idReview', review.id);
+    btnModify.textContent = 'Modify';
+
+    const btnDelete = document.createElement('button');
+    btnDelete.className = 'btn btn-danger delete-review-btn';
+    btnDelete.setAttribute('data-idReview', review.id);
+    btnDelete.setAttribute('data-idUtente', review.id_utente);
+    btnDelete.textContent = 'Delete';
+
+    li.appendChild(textareaCommento);
+    li.appendChild(textareaVoto);
+    li.appendChild(inputDate);
+    li.appendChild(btnModify);
+    li.appendChild(btnDelete);
+
+    return li;
+  }
   function createGameCard(game) {
     let date = "";
     if (game.data_inserimento) {

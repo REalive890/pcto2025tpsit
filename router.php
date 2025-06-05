@@ -85,6 +85,12 @@ switch ($action) {
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode($controller->updateGame($data['idGame'],$data['data_inserimento'],$data['genere'],$data['immagine'],$data['piattaforma'],$data['titolo']));
         break;
+    case 'create_game':
+        require_once 'model/Game.php';
+        $controller = new GameController($pdo);
+        $data = json_decode(file_get_contents('php://input'), true);
+        echo json_encode($controller->create_game($data));
+        break;
 
 }
 ?>

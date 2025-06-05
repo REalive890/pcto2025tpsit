@@ -160,7 +160,36 @@ function bindAdminControls() {
       console.log(btn_admin_delete_game);
     })
 
+    const btnCreateGame = gamesSection.querySelector('#btnCreateGame');
+    const modal = gamesSection.querySelector('#createGameModal');
+    const closeModal = gamesSection.querySelector('#closeCreateGameModal');
+    const form = gamesSection.querySelector('#createGameForm');
 
+    btnCreateGame.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((v, k) => data[k] = v);
+      const res = await fetch('router.php?action=create_game', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if(result.success) {
+        modal.style.display = 'none';
+        form.reset();
+        load_games();
+      } else {
+        alert(result.message || "Error creating game");
+      }
+    });
   }
   function createReviewItem(review) {
     let date = "";

@@ -1,3 +1,30 @@
+<button id="btnCreateGame" class="btn btn-success mb-3">Create New Game</button>
+<div id="createGameModal" class="modal" tabindex="-1" style="display:none;">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <form id="createGameForm">
+        <div class="mb-2">
+          <label>Titolo</label>
+          <input type="text" name="titolo" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label>Piattaforma</label>
+          <input type="text" name="piattaforma" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label>Genere</label>
+          <input type="text" name="genere" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label>Immagine</label>
+          <input type="text" name="immagine" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" id="closeCreateGameModal" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
 <div class="card-deck">
 
 </div>
@@ -8,4 +35,6 @@
     .card{
         margin: 5px;
     }
+    .modal { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
+    .modal-dialog { margin:auto; }
 </style>

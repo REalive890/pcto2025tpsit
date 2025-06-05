@@ -9,4 +9,21 @@
  *	6 	data_inserimento    timestamp 		No 	                current_timestamp() 	
  */
 
+class Game {
+    private $db;
+    public function __construct($db) {
+        $this->db = $db;
+    }
+    public function create_user($titolo, $piattaforma, $genere, $immagine = null) {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO giochi (titolo, piattaforma, genere, immagine) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$titolo, $piattaforma, $genere, $immagine]);
+            return true;
+        } catch (PDOException $e) {
+            // Optionally log error
+            return false;
+        }
+    }
+}
+
 ?>

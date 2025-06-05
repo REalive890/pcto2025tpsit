@@ -1,4 +1,5 @@
 <?php
+require_once 'model/Game.php';
 class GameController {
     private $pdo;
 
@@ -24,6 +25,19 @@ public function updateGame($id, $data_inserimento, $genere, $immagine, $piattafo
     return [
         "success" => $success,
         "message" => $success ? "Game updated successfully." : "Failed to update game."
+    ];
+}
+public function create_game($data) {
+    $gameModel = new Game($this->pdo);
+    $success = $gameModel->create_user(
+        $data['titolo'],
+        $data['piattaforma'],
+        $data['genere'],
+        $data['immagine'] ?? null
+    );
+    return [
+        'success' => $success,
+        'message' => $success ? "Game created successfully." : "Failed to create game."
     ];
 }
 }

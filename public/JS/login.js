@@ -20,9 +20,9 @@ async function bindLogin() {
       localStorage.setItem("username", result.username || jsonObj.username || "");
       updateLoginStatus();
       if(result.ruolo==='admin')
-        loadView("admin");
+        load_view("admin");
       else if(result.ruolo==='user')
-        loadView("games_edit_reviews");
+        load_view("games_edit_reviews");
       else alert("Something went wrong while trying to check your role")
     } else {
       showAlert(result.message || "Login failed", "danger");

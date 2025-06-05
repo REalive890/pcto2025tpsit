@@ -1,7 +1,3 @@
-document.querySelector("#component-register").addEventListener("load", async function() {
-    await bindRegister();
-    console.log("Register component loaded");
-});
 async function bindRegister() {
   const form = document.getElementById('registerForm');
   form.addEventListener('submit', async function(e) {
@@ -22,9 +18,7 @@ async function bindRegister() {
     const result = await res.json();
 
     if (result.success) {
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("ruolo", result.ruolo);
-      localStorage.setItem("username", result.username || jsonObj.username || "");
+      load_view("login");
       showAlert(result.message, "success");
       updateLoginStatus();
     } else {

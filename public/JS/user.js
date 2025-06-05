@@ -18,7 +18,7 @@ function add_listener_btn_logout() {
         localStorage.removeItem("ruolo");
         userId = null;
         updateLoginStatus();
-        loadView("login");
+        load_view("login");
       } else {
         console.error("Errore nel logout:", result.message);
       }
@@ -33,7 +33,7 @@ function add_listener_btn_register(){
   if (!btn) return;
   
   btn.addEventListener('click', () => {
-    loadView("register");
+    load_view("register");
   });
 }
 //--------------------------------------------------------------------------------------------------------------------
@@ -42,6 +42,6 @@ function add_listener_btn_login(){
   if (!btn) return;
   
   btn.addEventListener('click', () => {
-    loadView("login");
+    load_view("login");
   });
 }

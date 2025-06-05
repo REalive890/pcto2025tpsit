@@ -75,3 +75,12 @@
 [2025-06-03 17:24:03] INFO: Login effettuato con successo: admin@admin.com
 [2025-06-03 17:24:24] INFO: Login effettuato con successo: acharig47@gmail.com
 [2025-06-03 18:45:58] INFO: Login effettuato con successo: acharig47@gmail.com
+[2025-06-03 23:00:06] INFO: Login effettuato con successo: acharig47@gmail.com
+[2025-06-03 23:01:10] INFO: Utente registrato con successo: a@b.com
+[2025-06-03 23:01:15] ERROR: Errore in createUser: Email già registrata.
+[2025-06-03 23:05:59] INFO: Utente registrato con successo: b@c.com
+[2025-06-03 23:06:32] INFO: Utente registrato con successo: d@f.com
+[2025-06-03 23:06:55] INFO: Login effettuato con successo: d@f.com
+[2025-06-03 23:43:25] INFO: Login effettuato con successo: a@b.com
+[2025-06-03 23:44:51] INFO: Login effettuato con successo: admin@admin.com
+[2025-06-03 23:47:02] INFO: Login effettuato con successo: admin@admin.com

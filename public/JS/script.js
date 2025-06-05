@@ -11,6 +11,7 @@ async function load_games_reviews() {
 }
 $(document).ready(function () {
   add_listeners_header();
+  updateLoginStatus();
   load_games_reviews();  
 });
 
